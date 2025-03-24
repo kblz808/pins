@@ -1,28 +1,17 @@
 import { expect } from 'jsr:@std/expect'
-// import { drizzle } from 'drizzle-orm/node-postgres';
-import { User, UserRepository} from "@/storage/repository/user.repository.ts"
+import { UserRepository} from "@/storage/repository/user.repository.ts"
 import { crypto } from 'jsr:@std/crypto'
 import { setupDatabase } from "@/tests/storage/db.setup.ts";
-
-// Deno.test({
-//   name: "simple test",
-//   permissions: {read: true},
-//   fn: () => {
-//     const x = 1 + 2;
-//     assertEquals(x, 3);
-//   },
-// })
-
-// const db = drizzle(Deno.env.get("DATABASE_URL")!);
-// console.log(Deno.env.get("DATABASE_URL")!);
 
 Deno.test({
   name: "user repository test",
   permissions: {env: true, net: true},
+
   fn: async (t) => {
     const db = setupDatabase();
-
     const userRepository = new UserRepository(db);
+
+    let id: number | null = null;
 
     await t.step("should create a new user", async () => {
       const password = 'pa55word';
@@ -32,19 +21,23 @@ Deno.test({
       const data = encoder.encode(password);
       const password_hash = await crypto.subtle.digest('BLAKE3', data);
 
-      const userData: User = {
-        username: 'alex',
-        email: 'alex@mail.com',
+      const userData = {
+        username: 'morty',
+        email: 'alex@mail7.com',
         password_hash: decoder.decode(password_hash),
         avatar_url: 'https://images.com/avatar1.png',
         bio: 'some random bio',
         website: 'alex.com',
+        created_at: new Date(),
       };
 
-      await userRepository.createUser(userData);
+      const user_result = await userRepository.createUser(userData);
+      id = user_result[0].id
     })
-  
-    const result = 2 + 2;
-    expect(result).toBe(4);
+
+     await t.step("should select a user", async () => {
+       const user = await userRepository.getUserByID(id!);
+       expect(user.id).toBe(id)
+    })
   }
 })

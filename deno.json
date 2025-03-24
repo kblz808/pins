@@ -7,7 +7,7 @@
     "drizzle-orm": "npm:drizzle-orm@^0.40.0",
     "hono": "jsr:@hono/hono@^4.7.4",
     "minio": "npm:minio@^8.0.5",
-    "pg": "npm:pg@^8.14.0"
+    "pg": "npm:pg@^8.14.0",
   },
   "tasks": {
     "start": "deno run --allow-net main.ts",
