@@ -1,9 +1,9 @@
 services:
   postgres:
     image: postgres:16
-    container_name: snipz-db
+    container_name: pins-db
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:${DB_PORT}"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
@@ -15,6 +15,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   minio:
     image: minio/minio:latest
     container_name: minio

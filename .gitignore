@@ -1,4 +1,5 @@
 node_modules/
+.vscode/
 
 logs
 *.log
@@ -10,3 +11,5 @@ logs
 _dist
 
 .env
+
+drizzle/
