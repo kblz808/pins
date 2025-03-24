@@ -32,11 +32,13 @@ export const boards = pgTable("boards", {
   cover_image_url: text(),
   tags: text(),
   created_at: timestamp(),
+  updated_at: timestamp(),
 });
 
 export const comments = pgTable("comments", {
   id: serial().primaryKey(),
   user_id: integer().references(() => users.id, {onDelete: 'cascade'}).notNull(),
+  pin_id: integer().references(() => pins.id, {onDelete: 'cascade'}).notNull(),
   content: text(),
   created_at: timestamp(),
 });
@@ -57,6 +59,7 @@ export const boardRelations =relations(boards, ({one}) => ({
 
 export const commentRelations = relations(comments, ({one}) => ({
   user: one(users, {fields: [comments.user_id], references: [users.id]}),
+  pin: one(pins, {fields: [comments.pin_id], references: [pins.id]}),
 }))
 
 
