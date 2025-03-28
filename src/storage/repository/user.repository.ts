@@ -18,6 +18,11 @@ export class UserRepository {
     return result[0];
   }
 
+  async getUserByEmail(email: string) {
+    const result = await this.db.select().from(users).where(eq(users.email, email)).limit(1);
+    return result[0];
+  }
+  
   async getUserByUsername(username: string) {
     return await this.db.select().from(users).where(ilike(users.username, username)).limit(10);
   }
