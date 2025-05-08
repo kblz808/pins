@@ -1,12 +1,15 @@
 {
   "imports": {
     "@/": "./src/",
+    "@felix/bcrypt": "jsr:@felix/bcrypt@^1.0.5",
+    "@std/crypto": "jsr:@std/crypto@^1.0.4",
     "@types/minio": "npm:@types/minio@^7.1.1",
     "@types/pg": "npm:@types/pg@^8.11.11",
     "drizzle-kit": "npm:drizzle-kit@^0.30.5",
     "drizzle-orm": "npm:drizzle-orm@^0.40.0",
     "hono": "jsr:@hono/hono@^4.7.4",
     "minio": "npm:minio@^8.0.5",
+    "paseto-ts": "npm:paseto-ts@^1.5.7",
     "pg": "npm:pg@^8.14.0",
   },
   "tasks": {
